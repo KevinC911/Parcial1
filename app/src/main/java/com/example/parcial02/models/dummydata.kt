@@ -1,4 +1,5 @@
 package com.example.parcial02.models
 
-class dummydata {
-}
+var airports = mutableListOf(
+    AirportModel("Principal AIrport", "Fictional Location")
+)
