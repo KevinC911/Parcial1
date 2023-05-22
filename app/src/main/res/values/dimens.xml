@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="medium_24">24dp</dimen>
+    <dimen name="medium_24sp">24sp</dimen>
+    <dimen name="small_4">4dp</dimen>
 </resources>
