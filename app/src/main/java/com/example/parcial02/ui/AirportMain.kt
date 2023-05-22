@@ -5,56 +5,60 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.parcial02.R
+import com.example.parcial02.databinding.FragmentAirportMainBinding
+import com.example.parcial02.models.AirportModel
+import com.example.parcial02.ui.recyclerview.AirportAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AirportMain.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AirportMain : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentAirportMainBinding
+    private val viewModel: AirportViewModel by activityViewModels { AirportViewModel.Factory }
+    private lateinit var adapter: AirportAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_airport_main, container, false)
+        binding = FragmentAirportMainBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AirportMain.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AirportMain().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setRecyclerView(view)
+
+        binding.addAirport.setOnClickListener{
+            viewModel.clearData()
+            it.findNavController().navigate(R.id.action_airportMain_to_airportForm)
+        }
+
     }
+
+    private fun showSelectedItem(airport:AirportModel) {
+        viewModel.setSelectedAirport(airport)
+        findNavController().navigate(R.id.action_airportMain_to_airportDetails)
+    }
+
+    private fun displayAirports() {
+        adapter.setData(viewModel.getAirports())
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun setRecyclerView(view: View) {
+        binding.recyclerView.layoutManager = LinearLayoutManager(view.context)
+
+        adapter = AirportAdapter { selectedAirport ->
+            showSelectedItem(selectedAirport)
+        }
+        binding.recyclerView.adapter = adapter
+        displayAirports()
+    }
+
+
+
 }

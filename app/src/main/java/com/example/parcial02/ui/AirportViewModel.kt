@@ -1,5 +1,6 @@
 package com.example.parcial02.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -35,6 +36,21 @@ class AirportViewModel(private val repository: AirportRepository): ViewModel() {
         status.value = AIRPORT_CREATED
     }
 
+    fun getSelectedAirport(): LiveData<AirportModel> {
+        return anAirport
+    }
+
+    fun setSelectedAirport(airport: AirportModel){
+        name.value = airport.name
+        location.value = airport.location
+
+        val setAirport = AirportModel(
+            airport.name,
+            airport.location
+        )
+        anAirport = MutableLiveData(setAirport)
+    }
+
     private fun validateData(): Boolean {
         when {
             name.value.isNullOrEmpty() -> return false
@@ -43,7 +59,7 @@ class AirportViewModel(private val repository: AirportRepository): ViewModel() {
         return true
     }
 
-    private fun clearData() {
+    fun clearData() {
         name.value = ""
         location.value = ""
     }
