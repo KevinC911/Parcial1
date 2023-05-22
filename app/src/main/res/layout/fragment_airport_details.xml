@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/blue_soft"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.AirportDetails">
@@ -10,9 +11,11 @@
 
         <TextView
             android:id="@+id/name_text"
+            android:fontFamily="sans-serif-black"
+            android:textSize="@dimen/medium_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/medium_24"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +23,8 @@
 
         <TextView
             android:id="@+id/location_text"
+            android:fontFamily="sans-serif-black"
+            android:textSize="@dimen/medium_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"

@@ -3,4 +3,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="clue_cyan">#00C1FF</color>
+    <color name="blue_soft">#D6F5FF</color>
 </resources>

@@ -37,6 +37,7 @@
 
                 <Button
                     android:id="@+id/submit"
+                    android:backgroundTint="@color/clue_cyan"
                     android:layout_marginTop="@dimen/medium_24"
                     android:onClick="@{() -> viewmodel.createAirport()}"
                     android:layout_width="wrap_content"
